@@ -5,7 +5,7 @@ def load_data():
 
     import pandas as pd
 
-    dataset = pd.read_csv("auto_mpg.csv")
+    dataset = pd.read_csv("files/input/auto_mpg.csv")
     dataset = dataset.dropna()
     dataset["Origin"] = dataset["Origin"].map(
         {1: "USA", 2: "Europe", 3: "Japan"},
@@ -31,14 +31,14 @@ def load_estimator():
 
 def test_01():
 
-    from sklearn.metrics import accuracy_score
+    from sklearn.metrics import r2_score
 
     x, y = load_data()
     estimator = load_estimator()
 
-    accuracy = accuracy_score(
+    r2 = r2_score(
         y_true=y,
         y_pred=estimator.predict(x),
     )
 
-    assert accuracy > 0.9545
+    assert r2 > 0.9545
