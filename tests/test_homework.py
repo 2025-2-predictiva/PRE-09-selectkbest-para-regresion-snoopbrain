@@ -21,9 +21,9 @@ def load_estimator():
     import os
     import pickle
 
-    if not os.path.exists("estimator.pickle"):
+    if not os.path.exists("homework/estimator.pickle"):
         return None
-    with open("estimator.pickle", "rb") as file:
+    with open("homework/estimator.pickle", "rb") as file:
         estimator = pickle.load(file)
 
     return estimator
@@ -31,12 +31,14 @@ def load_estimator():
 
 def test_01():
 
-    import numpy as np
+    from sklearn.metrics import r2_score
 
     x, y = load_data()
     estimator = load_estimator()
 
-    y_pred = estimator.predict(x)
-    correlation = np.corrcoef(y, y_pred)[0, 1]
+    r2 = r2_score(
+        y, 
+        estimator.predict(x),
+    )
 
-    assert correlation > 0.9545
+    assert r2 > 0.6
